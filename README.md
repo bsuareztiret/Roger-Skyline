@@ -11,55 +11,55 @@ projet 19, réseaux
           | ____ Une partition avec le reste
           
 ## Installer des outils
-    — Mise a jour des packages
-        |
-        |
-        '''
+   Mise a jour des packages
+   
+        
         apt install -y vim sudo net-tools iptables-persistent fail2ban sendmail apache
-        '''
+        
 
 ## Service SSH
-    — Modifier le fichier /etc/ssh/sshd_config
-        |
-        |
-        '''
+   Modifier le fichier /etc/ssh/sshd_config
+
+        
         port 2222
         PermitRootLogin no
         PubkeyAuthentication no
-        '''
-        | ____ Mettre a jour
-                  |
-                  '''
+        
+        
+   Mettre a jour
+   
+                  
                   service ssh restart
-                  '''
-     — Générer une clé publique avec
-          |
-          '''
+                  
+                  
+   Générer une clé publique avec
+          
+          
           ssh-keygen
-          '''
-     — Rendre la clé publique éffective
-          |
-          '''
+          
+  Rendre la clé publique éffective
+          
+          
           ssh-copy-id -i id_rsa.pub -p 2222 user@192.168.56.3
-          '''pen
+          
 
 ## Interface STATIC
-    - Mise en place du réseau, modifier le fichier
-        |
-        '''
+   Mise en place du réseau, modifier le fichier
+        
+        
         vim /etc/network/interfaces
-        '''
-        | ____ enp0s8
-                  |
-                  '''
+        
+   enp0s8
+                  
+                  
                   iface enp0s8 inet static
                   address 192.168.56.3
                   netmask 255.255.255.252
-                  '''
-     — Mettre a jour
-        |
-        '''
+                  
+   Mettre a jour
+       
+        
         reboot
-        '''
+       
         
                   
