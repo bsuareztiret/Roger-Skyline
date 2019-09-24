@@ -15,7 +15,7 @@ projet 19, réseaux
    
     apt install -y vim sudo net-tools iptables-persistent fail2ban sendmail apache
         
-## Service SSH
+## Service *SSH*
    Modifier le fichier /etc/ssh/sshd_config
 
      port 2222
@@ -52,5 +52,35 @@ projet 19, réseaux
        
     reboot
        
-        
+## Firewall
+   Mise des règles de pare-feu
+   
+   Listes les règles existantes
+   
+    sudo iptables -L
+   
+  Ajouter ce fichier et écrire les règles de votre choix
+  
+    sudo vim /etc/network/if-pre-up.d/iptables
+
+  Puis le rendre executables
+  
+    sudo chmod +x /etc/network/if-pre-up.d/iptables
                   
+## Denial Of Service Attack *DOS*
+   Création du fichier log pour le serveur apache, fait office de jorunal de bord
+   
+    sudo touch /var/log/apache2/server.log
+   
+   Créer un fichier de configuration local permet de ne pas compromettre les règles par defaut
+   
+    sudo vim /etc/fail2ban/jail.local
+    
+   Créer un fichier de filtrages
+    
+    sudo vim /etc/fail2ban/filter.d/http-get-dos.conf
+   
+   Relancer le tout
+   
+    sudo systemctl restart fail2ban.service
+   
