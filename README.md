@@ -94,7 +94,7 @@ projet 19, réseaux
     
     ?????
     
-## Sript *Update* && *Watching*
+## Script *Update* && *Watching*
    Créer un script pour updater les packages automatiquement, le fichier doit se finir par ".sh"
     
    Contenu du script *Update*
