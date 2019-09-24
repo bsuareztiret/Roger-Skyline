@@ -96,6 +96,16 @@ projet 19, réseaux
     
 ## Script *Update* && *Watching*
    Créer un script pour updater les packages automatiquement, le fichier doit se finir par ".sh"
+   
+   Ajouter ceci dans /etc/hosts, sinon les mails ne s'enveront pas
+   
+   	127.0.0.1	localhost localhost.localdomain
+	127.0.1.1	RO test.home.com
+
+	# The following lines are desirable for IPv6 capable hosts
+	::1     localhost ip6-localhost ip6-loopback
+	ff02::1 ip6-allnodes
+	ff02::2 ip6-allrouters
     
    Contenu du script *Update*
     
