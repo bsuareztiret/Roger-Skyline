@@ -84,3 +84,58 @@ projet 19, réseaux
    
     sudo systemctl restart fail2ban.service
    
+## Vérification des ports ouverts
+   La commande
+    
+    sudo netstat -paunt
+    
+## Désactiver des services
+   La commande
+    
+    ?????
+    
+## Sript *Update* && *Watching*
+   Créer un script pour updater les packages automatiquement, le fichier doit se finir par ".sh"
+    
+   Contenu du script *Update*
+    
+    #! /bin/bash
+        apt-get update && apt-get upgrade
+    
+   Rendez-le executable
+   
+    chmod +x FICHIER.sh
+    
+   Ouvrer /etc/crontab avec un éditeur et ajouter ceci
+   
+    0 4	* * 1	root	/home/USER/FICHIER.sh  >> /var/log/FICHIER.log
+    @reboot		root	/home/USER/FICHIER.sh  >> /var/log/FICHIER.log
+    
+   Copier le contenu de votre crontab
+   
+    cp /etc/crontab /home/USER/tmp
+   
+   Créer le contenu du mail a envoyer
+   
+    vim /home/USER/email.txt
+   
+   Contenu du script *Watching*
+   
+    #!/bin/bash
+    cat /etc/crontab > /home/USER/new
+    DIFF=$(diff new tmp)
+    if [ "$DIFF" != "" ]; then
+	    sudo sendmail ROOT@MAIL.com < /home/USER/email.txt
+	    rm -rf /home/USER/tmp
+	    cp /home/USER/new /home/USER/tmp
+    fi
+    
+   Rendez-le executable
+   
+    chmod +x FICHIER.sh
+    
+   Ouvrer /etc/crontab avec un éditeur et ajouter ceci
+   
+    0  0	* * *	root	/home/USER/watch_script.sh
+    
+   
