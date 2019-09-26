@@ -237,4 +237,31 @@ projet 19, réseaux
 	a2dissite /etc/apache2/sites-available/000-default.conf
 	a2ensite /etc/apache2/sites-available/001-default.conf
    
-   		
+## Deploiement GIT
+   Cette méthode permet de pouvoir update dans beaucoup de situation, autant en local, qu'en réseaux.
+   
+   Créer un dossier */var/repo/git-repo.git* et entrez la commande
+   	
+	git init --bare
+	
+   Créez /var/repo/git-repo.git/hooks/post-recieve
+   
+   	#!/bin/sh
+	git --work-tree=/var/www/TONCHEMIN --git-dir=/var/repo/git-repo.git checkout -f
+	
+   Ensuite rendez le executable
+   
+   	chmod +x post-recieve
+   
+   Pour l'exemple dans votre home créer un dossier /home/USER/web, entrez
+	
+	git init
+	git remote add live /var/repo/git-repo.git
+	
+   Pour cette dernière commande vous pouvez ajouter ssh://USER@192.168.56.3/var/repo/git-repo.git pour vous connecter en local
+   
+   Ensuite vous pouvez update tranquille
+   
+   	git add TONUPDATE
+	git commit -m "TONUPDATE"
+	git push live master
