@@ -62,6 +62,45 @@ projet 19, réseaux
   Ajouter ce fichier et écrire les règles de votre choix
   
     sudo vim /etc/network/if-pre-up.d/iptables
+    
+  *Exemple de règle*
+  	
+	#!/bin/bash
+
+	iptables-restore < /etc/iptables.test.rules
+
+	iptables -F
+	iptables -X
+	iptables -t nat -F
+	iptables -t nat -X
+	iptables -t mangle -F
+	iptables -t mangle -X
+
+	iptables -P INPUT DROP
+
+	iptables -P OUTPUT DROP
+
+	iptables -P FORWARD DROP
+
+	iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+
+	iptables -A INPUT -p tcp -i enp0s8 --dport 2222 -j ACCEPT
+
+	iptables -A INPUT -p tcp -i enp0s8 --dport 80 -j ACCEPT
+
+	iptables -A INPUT -p tcp -i enp0s8 --dport 443 -j ACCEPT
+
+	iptables -A OUTPUT -m conntrack ! --ctstate INVALID -j ACCEPT
+
+	iptables -I INPUT -i lo -j ACCEPT
+
+	iptables -A INPUT -j LOG
+
+	iptables -A FORWARD -j LOG
+
+	iptables -I INPUT -p tcp --dport 80 -m connlimit --connlimit-above 10 --connlimit-mask 20 -j DROP
+
+	exit 0
 
   Puis le rendre executables
   
@@ -79,6 +118,22 @@ projet 19, réseaux
    Créer un fichier de filtrages
     
     sudo vim /etc/fail2ban/filter.d/http-get-dos.conf
+    
+   Insérer ceci dans le fichier créer
+   
+   	[Definition]
+
+	# Option: failregex
+	# Note: This regex will match any GET entry in your logs, so basically all valid and not valid entries are a match.
+	# You should set up in the jail.conf file, the maxretry and findtime carefully in order to avoid false positives.
+
+	failregex = ^<HOST> -.*"(GET|POST).*
+
+	# Option: ignoreregex
+	# Notes.: regex to ignore. If this regex matches, the line is ignored.
+	# Values: TEXT
+	#
+	ignoreregex =
    
    Relancer le tout
    
@@ -89,10 +144,10 @@ projet 19, réseaux
     
     sudo netstat -paunt
     
-## Désactiver des services
+## Désactiver les services inutiles
    La commande
     
-    ?????
+    systemctl disable <SERVICE>
     
 ## Script *Update* && *Watching*
    Créer un script pour updater les packages automatiquement, le fichier doit se finir par ".sh"
@@ -148,4 +203,38 @@ projet 19, réseaux
    
     0  0	* * *	root	/home/USER/watch_script.sh
     
+## OpenSSl certificates
+   Première partie
+   Générer une clé *rsa* pour votre certificat auto-sginé ssl
+	
+   	openssl genrsa 1024 > COMMETUVEUX.key
+	
+   Pour la commande suivante des informations seront demandés
+	
+	openssl req -new -key ./COMMETUVEUX.key > COMMETUVEUX.csr
+
+   Derniere commande
    
+   	openssl x509 -in COMMETUVEUX.csr -out COMMETUVEUX.crt -req -signkey COMMETUVEUX.key -days 365
+	
+   Dans /etc/apache2/sites-available modifier ceci
+   
+   	DocumentRoot /var/www/html
+   		
+   	SSLCertificateFile	/etc/ssl/certs/COMMETUVEUX.crt
+	SSLCertificateKeyFile /etc/ssl/private/COMMETUVEUX.key
+
+   Copier /etc/apache2/sites-available/000-default.conf
+   Modifier votre copie /etc/apache2/sites-available/001-default.conf
+   
+   	ServerName www.COMMETUVEUX.com
+	ServerAdmin TONBLAZE@mail.com
+	DocumentRoot /var/www/TONDIR/
+	
+   Apres cela il faut encore entrée ces commandes, afin d'activer le module ssl, désactiver l'ancienne config et lancer la nouvelle
+   
+   	a2enmod ssl
+	a2dissite /etc/apache2/sites-available/000-default.conf
+	a2ensite /etc/apache2/sites-available/001-default.conf
+   
+   		
