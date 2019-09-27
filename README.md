@@ -2,7 +2,10 @@
 projet 19, réseaux
 
 ## Création VM
-    — Dans le paramètres network ajouter un réseaux hôte privé
+   Dans le paramètres network ajouter un réseaux hôte privé
+    
+   Dans hostnetworkmanager créer un réseau mettre 255.255.255.252 en netmask
+    
     — Taille de 8Go (7.41GB se rapproche le plus de 8Go)
     — Partitionner
         |
