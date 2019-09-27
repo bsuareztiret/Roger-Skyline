@@ -3,12 +3,12 @@ projet 19, réseaux
 
 ## Création VM
     — Dans le paramètres network ajouter un réseaux hôte privé
-    — Taille de 8Go
+    — Taille de 8Go (7.41GB se rapproche le plus de 8Go)
     — Partitionner
         |
-        | ____ Une parition de 4.2Gb
-         | ____ Une parition swap de 1Gb
-          | ____ Une partition avec le reste
+        | ____ Une parition de 4.2Gb primaire mount en '/'
+         | ____ Une parition swap de 1Gb logique en swap
+          | ____ Une partition avec le reste logique en '/home'
           
 ## Installer des outils
    Mise a jour des packages
