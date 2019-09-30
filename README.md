@@ -226,6 +226,21 @@ projet 19, réseaux
    
    	sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -subj "/C=FR/ST=IDF/O=42/OU=Project-roger/CN=10.11.200.247" -keyout /etc/ssl/private/apache-selfsigned.key -out /etc/ssl/certs/apache-selfsigned.crt
 
+   Tu peux aussi créer ce fichier etc/apache2/conf-available/ssl-params.conf et mettre ça dedans
+   
+   	SSLCipherSuite EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH
+	SSLProtocol All -SSLv2 -SSLv3 -TLSv1 -TLSv1.1
+	SSLHonorCipherOrder On
+
+	Header always set X-Frame-Options DENY
+	Header always set X-Content-Type-Options nosniff
+
+	SSLCompression off
+	SSLUseStapling on
+	SSLStaplingCache "shmcb:logs/stapling-cache(150000)"
+
+	SSLSessionTickets Off
+
    Dans /etc/apache2/sites-available modifier ceci
    
    	DocumentRoot /var/www/html
@@ -241,6 +256,8 @@ projet 19, réseaux
    	ServerName www.COMMETUVEUX.com
 	ServerAdmin TONBLAZE@mail.com
 	DocumentRoot /var/www/TONDIR/
+	
+	Redirect "/" "https://192.168.56.2/"
 	
    Apres cela il faut encore entrée ces commandes, afin d'activer le module ssl, désactiver l'ancienne config et lancer la nouvelle
    
