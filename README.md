@@ -16,7 +16,7 @@ projet 19, réseaux
 ## Installer des outils
    Mise a jour des packages
    
-    apt install -y vim sudo net-tools iptables-persistent fail2ban sendmail apache
+    apt install -y vim sudo net-tools iptables-persistent fail2ban sendmail apache2
         
 ## Service *SSH*
    Modifier le fichier /etc/ssh/sshd_config
@@ -150,6 +150,7 @@ projet 19, réseaux
 ## Désactiver les services inutiles
    La commande
     
+    service --status-all
     systemctl disable <SERVICE>
     
 ## Script *Update* && *Watching*
