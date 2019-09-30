@@ -49,7 +49,7 @@ projet 19, réseaux
    enp0s8
                    
      iface enp0s8 inet static
-     address 192.168.56.3
+     address 192.168.56.2
      netmask 255.255.255.252
                   
    Mettre a jour
@@ -263,7 +263,7 @@ projet 19, réseaux
 	git init
 	git remote add live /var/repo/git-repo.git
 	
-   Pour cette dernière commande vous pouvez ajouter ssh://USER@192.168.56.3/var/repo/git-repo.git pour vous connecter en local
+   Pour cette dernière commande vous pouvez ajouter ssh://USER@192.168.56.2/var/repo/git-repo.git pour vous connecter en local
    
    Ensuite vous pouvez update tranquille
    
