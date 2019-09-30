@@ -17,6 +17,7 @@ projet 19, réseaux
    Mise a jour des packages
    
     apt install -y vim sudo net-tools iptables-persistent fail2ban sendmail apache2
+    apt install -y git (partie déploiement)
         
 ## Service *SSH*
    Modifier le fichier /etc/ssh/sshd_config
