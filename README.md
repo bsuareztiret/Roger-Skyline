@@ -18,29 +18,8 @@ projet 19, réseaux
    
     apt install -y vim sudo net-tools iptables-persistent fail2ban sendmail apache2
     apt install -y git (partie déploiement)
-        
-## Service *SSH*
-   Modifier le fichier /etc/ssh/sshd_config
-
-     port 2222
-     PermitRootLogin no
-     PubkeyAuthentication yes
-        
-        
-   Mettre a jour
- 
-    service ssh restart
-                  
-                  
-   Générer une clé publique avec
-          
-    ssh-keygen
-          
-  Rendre la clé publique éffective
-          
-    ssh-copy-id -i id_rsa.pub -p 2222 user@192.168.56.2
-          
-
+    
+    
 ## Interface STATIC
    Mise en place du réseau, modifier le fichier
         
@@ -55,6 +34,28 @@ projet 19, réseaux
    Mettre a jour
        
     reboot
+        
+## Service *SSH*
+### Serveur
+   Modifier le fichier /etc/ssh/sshd_config
+
+     port 2222
+     PermitRootLogin no
+     PubkeyAuthentication yes
+        
+        
+   Mettre a jour
+ 
+    service ssh restart
+          
+### Client
+   Générer une clé publique avec
+          
+    ssh-keygen
+          
+  Rendre la clé publique éffective
+          
+    ssh-copy-id -i id_rsa.pub -p 2222 user@192.168.56.2
        
 ## Firewall
    Mise des règles de pare-feu
