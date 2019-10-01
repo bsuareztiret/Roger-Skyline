@@ -143,6 +143,10 @@ projet 19, réseaux
    Relancer le tout
    
     sudo systemctl restart fail2ban.service
+    
+  Vous pouvez télécharger ceci pour tester que votre serveur tourne toujours
+  
+    https://github.com/gkbrk/slowloris
    
 ## Vérification des ports ouverts
    La commande
