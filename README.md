@@ -261,9 +261,12 @@ projet 19, réseaux
 	
    Apres cela il faut encore entrée ces commandes, afin d'activer le module ssl, désactiver l'ancienne config et lancer la nouvelle
    
-   	a2enmod ssl
-	a2dissite /etc/apache2/sites-available/000-default.conf
-	a2ensite /etc/apache2/sites-available/001-default.conf
+   	sudo a2enmod ssl
+	sudo apachectl configtest
+	sudo a2dissite 000-default.conf
+	sudo a2ensite 001-default.conf
+	sudo a2ensite default-ssl
+	sudo systemctl restart apache2.service
    
 ## Deploiement GIT
    Cette méthode permet de pouvoir update dans beaucoup de situation, autant en local, qu'en réseaux.
