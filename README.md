@@ -24,7 +24,7 @@ projet 19, réseaux
 
      port 2222
      PermitRootLogin no
-     PubkeyAuthentication no
+     PubkeyAuthentication yes
         
         
    Mettre a jour
@@ -38,7 +38,7 @@ projet 19, réseaux
           
   Rendre la clé publique éffective
           
-    ssh-copy-id -i id_rsa.pub -p 2222 user@192.168.56.3
+    ssh-copy-id -i id_rsa.pub -p 2222 user@192.168.56.2
           
 
 ## Interface STATIC
